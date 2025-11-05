@@ -6,7 +6,7 @@ app.use(express.json());
 
 // --- Supabase Config ---
 const SUPABASE_URL = "https://kmfpanzbakilqmrrqtjm.supabase.co/rest/v1/pet_gps";
-const SUPABASE_KEY = process.env.SUPABASE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttZnBhbnpiYWtpbHFtcnJxdGptIiwicm9sIjoiYW5vbiIsImlhdCI6MTc1MDIwMDkyMCwiZXhwIjoyMDY1Nzc2OTIwfQ.JTPFmFV3IZfFCTEUHvTPClzwo8aGMt66nNRnRCl1AJw";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttZnBhbnpiYWtpbHFtcnJxdGptIiwicm9sIjoiYW5vbiIsImlhdCI6MTc1MDIwMDkyMCwiZXhwIjoyMDY1Nzc2OTIwfQ.JTPFmFV3IZfFCTEUHvTPClzwo8aGMt66nNRnRCl1AJw";
 
 
 // --- Allow CORS (so IoT devices and browsers can send data freely) ---
@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 
 // --- Root Endpoint ---
 app.get("/", (req, res) => {
-  res.send("✅ Supabase IoT Proxy is running. try it on postman or insomnia");
+  res.send("✅ Supabase IoT Proxy is running. try it on postman or insomnia: api key is hardcoded");
 });
 
 // --- IoT Data Forwarding Endpoint ---
