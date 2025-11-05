@@ -45,8 +45,8 @@ app.post("/api/update", async (req, res) => {
       },
       body: JSON.stringify({
         is_leash,
-        latitude: lat,
-        longitude: lng,
+        lat: lat,
+        lng: lng,
       }),
     });
 
