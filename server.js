@@ -6,7 +6,7 @@ app.use(express.json());
 
 // Environment variables (or replace directly for testing)
 const SUPABASE_URL = "https://kmfpanzbakilqmrrqtjm.supabase.co/rest/v1/pet_gps";
-const SUPABASE_KEY = process.env.SUPABASE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttZnBhbnpiYWtpbHFtcnJxdGptIiwicm9sIjoiYW5vbiIsImlhdCI6MTc1MDIwMDkyMCwiZXhwIjoyMDY1Nzc2OTIwfQ.JTPFmFV3IZfFCTEUHvTPClzwo8aGMt66nNRnRCl1AJw";
+const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
 app.post("/api/update", async (req, res) => {
   const { device_id, is_leash, lat, lng } = req.body;
