@@ -19,6 +19,8 @@ app.use((req, res, next) => {
 // --- Root Endpoint ---
 app.get("/", (req, res) => {
   res.send("✅ Supabase IoT Proxy is running. try it on postman or insomnia: api key is hardcoded");
+  console.log("api key is hardcoded");
+  console.log(SUPABASE_KEY);
 });
 
 // --- IoT Data Forwarding Endpoint ---
