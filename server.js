@@ -4,10 +4,23 @@ import fetch from "node-fetch";
 const app = express();
 app.use(express.json());
 
-// Environment variables (or replace directly for testing)
+// --- Supabase Config ---
 const SUPABASE_URL = "https://kmfpanzbakilqmrrqtjm.supabase.co/rest/v1/pet_gps";
 const SUPABASE_KEY = process.env.SUPABASE_KEY;
 
+// --- Allow CORS (so IoT devices and browsers can send data freely) ---
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+// --- Root Endpoint ---
+app.get("/", (req, res) => {
+  res.send("✅ Supabase IoT Proxy is running. try it on postman or insomnia");
+});
+
+// --- IoT Data Forwarding Endpoint ---
 app.post("/api/update", async (req, res) => {
   const { device_id, is_leash, lat, lng } = req.body;
 
@@ -16,27 +29,37 @@ app.post("/api/update", async (req, res) => {
   }
 
   try {
+    console.log(`📡 Forwarding device ${device_id} to Supabase...`);
+    console.log(req.body);
+
     const response = await fetch(`${SUPABASE_URL}?device_id=eq.${device_id}`, {
       method: "PATCH",
       headers: {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`,
         "Content-Type": "application/json",
+        Prefer: "return=minimal",
       },
-      body: JSON.stringify({ is_leash, lat, lng }),
+      body: JSON.stringify({
+        is_leash,
+        latitude: lat,
+        longitude: lng,
+      }),
     });
 
-    const data = await response.text();
-    res.status(response.status).send(data);
+    if (!response.ok) {
+      const text = await response.text();
+      console.error("❌ Supabase response:", text);
+      return res.status(response.status).send(text);
+    }
+
+    res.json({ success: true, message: "✅ Data forwarded to Supabase" });
   } catch (err) {
-    console.error("Proxy error:", err);
+    console.error("💥 Proxy error:", err);
     res.status(500).json({ error: "Failed to send to Supabase" });
   }
 });
 
-app.get("/", (req, res) => {
-  res.send("Supabase IoT Proxy is running.");
-});
-
+// --- Start Server ---
 const PORT = process.env.PORT || 10000;
-app.listen(PORT, () => console.log(`🚀 Proxy running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 IoT Proxy running on port ${PORT}`));
