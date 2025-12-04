@@ -5,8 +5,8 @@ const app = express();
 app.use(express.json());
 
 // --- Supabase Config ---
-const SUPABASE_URL = "https://kmfpanzbakilqmrrqtjm.supabase.co/rest/v1/pet_gps";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImttZnBhbnpiYWtpbHFtcnJxdGptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyMDA5MjAsImV4cCI6MjA2NTc3NjkyMH0.JTPFmFV3IZfFCTEUHvTPClzwo8aGMt66nNRnRCl1AJw";
+const SUPABASE_URL = "";
+const SUPABASE_KEY = "";
 
 
 // --- Allow CORS (so IoT devices and browsers can send data freely) ---
